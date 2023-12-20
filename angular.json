@@ -3,19 +3,29 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angularFrontendExam": {
+    "frontendexamangular": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular-frontend-exam",
+            "outputPath": "dist/frontendexamangular",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -25,13 +35,9 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -50,12 +56,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -70,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angularFrontendExam:build:production"
+              "buildTarget": "frontendexamangular:build:production"
             },
             "development": {
-              "browserTarget": "angularFrontendExam:build:development"
+              "buildTarget": "frontendexamangular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angularFrontendExam:build"
+            "buildTarget": "frontendexamangular:build"
           }
         },
         "test": {
@@ -101,11 +104,28 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "frontendexamangular:build:production",
+              "serveTarget": "frontendexamangular:serve:production"
+            },
+            "development": {
+              "buildTarget": "frontendexamangular:build:development",
+              "serveTarget": "frontendexamangular:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
   },
   "cli": {
-    "analytics": "9f9fda62-c74e-43a5-806c-bcbd67515e4e"
+    "analytics": "3ef153f4-cc01-4884-8ca5-7611c45d59bf"
   }
 }

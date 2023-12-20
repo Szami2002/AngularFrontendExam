@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "frontendexam-c8c0f": {
+      "hosting": {
+        "frontendexamangular": [
+          "frontendexam-c8c0f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "frontendexam-c8c0f"
+  }
+}
