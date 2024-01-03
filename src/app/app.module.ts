@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     provideFirebaseApp(() => initializeApp({"projectId":"frontendexam-c8c0f","appId":"1:992813250466:web:b084f6253a379291fd24fb","databaseURL":"https://frontendexam-c8c0f-default-rtdb.firebaseio.com","storageBucket":"frontendexam-c8c0f.appspot.com","apiKey":"AIzaSyCEn1_SdvEh7g4uLU6-Yfp5DuNDTYNOkJY","authDomain":"frontendexam-c8c0f.firebaseapp.com","messagingSenderId":"992813250466"})),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase())
