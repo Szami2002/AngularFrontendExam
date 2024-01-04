@@ -1,33 +1,74 @@
-<header>
-  <div class="row">
-      <div class="col-12">
-          <h1>Add new Task</h1>
-          <form class="col-12">
-              <div class="col-3">
-                  <input class="form-control" type="text" placeholder="Add a task">
-              </div>
-              <div class="col-3 form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  <label class="form-check-label" for="flexCheckDefault">
-                      Today
-                  </label>
-              </div>
-              <div class="col-3 form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  <label class="form-check-label" for="flexCheckDefault">
-                      Tomorrow
-                  </label>
-              </div>
 
-          </form>
-      </div>
-  </div>
-</header>
+<div class="container mb-5 mt-5">
+    <div class="row">
+        <div class="col-12 p-1 border border-black rounded">
+            <h1 class="header">Add new Task</h1>
+           
+            <form class="col-12">
+                <div class="row ">
+                <div class="col-3 ">
+                    <input class="form-control" type="text" name="task" placeholder="Describe task">
+                </div>
+                <div class="col-3 form-check ">
+                    
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Today
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                </div>
+                <div class="col-3 form-check ">
+                    
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Tomorrow
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                </div>
+                <div class="col-3 ">
+                    <button type="button" class="btn btn-light w-100 border border-black rounded">Save</button>
+                </div>
+                </div>
 
-<body>
-  <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4"></div>
-      <div class="col-4"></div>
-  </div>
-</body>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row p-1">
+        
+        <div class="col-4 p-1 border border-black rounded">
+            <h2 class="header">Tasks for Today</h2>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    valami
+                </label>
+            </div>
+
+        </div>
+        <div class="col-4 p-1 text-center">
+            <div class="icon">
+                <i class="material-icons" style="font-size:48px;">arrow_forward</i>
+                <p>Tomorrow</p>
+            </div>
+            <div class="icon">
+                <i class="material-icons" style="font-size:48px;">arrow_back</i>
+                <p>Today</p>
+            </div>
+            <div class="icon">
+                <i class="material-icons" style="font-size:48px;">delete</i>
+                <p>Delete</p>
+            </div>
+        </div>
+        <div class="col-4 p-1 border border-black rounded">
+            <h2 class="header">Tasks for Tomorrow</h2>
+            <div class="form-check ">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    valami
+                </label>
+            </div>
+        
+    </div>
+    </div>
+</div>

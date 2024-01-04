@@ -7,17 +7,24 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
   providedIn: 'root'
 })
 export class DayService {
-  todays: Today[] = [];
-  tomorrows: Tomorrow[] = [];
-
+  //todays: Today[] = [];
+  //tomorrows: Tomorrow[] = [];
+  todays: Map<string, Today> = new Map<string, Today>();
+  tomorrows: Map<string, Tomorrow> = new Map<string, Tomorrow>();
   constructor(private db: AngularFireDatabase) {
-    db.list<Today>('todays').valueChanges().subscribe(t => {
+    /*db.list<Today>('todays').valueChanges().subscribe(t => {
       this.todays = t;
-    })
-
-    db.list<Tomorrow>('tomorrows').valueChanges().subscribe(t => {
+    })*/
+    /*db.list<Tomorrow>('tomorrows').valueChanges().subscribe(t => {
       this.tomorrows = t;
-    })
+    })*/
+
+    db.object('todays').valueChanges().subscribe(t => {
+      this.todays = new Map(Object.entries(t as Object));
+    });
+    db.object('tomorrows').valueChanges().subscribe(t => {
+      this.tomorrows = new Map(Object.entries(t as Object));
+    });
   }
 
   addToday(today: Today) {
