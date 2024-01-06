@@ -1,31 +1,34 @@
-
 <div class="container mb-5 mt-5">
     <div class="row">
         <div class="col-12 p-1 border border-black rounded">
             <h1 class="header">Add new Task</h1>
-           
+
             <form class="col-12">
                 <div class="row ">
-                <div class="col-3 ">
-                    <input class="form-control" type="text" name="task" placeholder="Describe task">
-                </div>
-                <div class="col-3 form-check ">
-                    
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Today
-                    </label>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                </div>
-                <div class="col-3 form-check ">
-                    
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Tomorrow
-                    </label>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                </div>
-                <div class="col-3 ">
-                    <button type="button" class="btn btn-light w-100 border border-black rounded">Save</button>
-                </div>
+                    <div class="col-3 ">
+                        <input class="form-control" type="text" name="task" placeholder="Describe task"
+                            [(ngModel)]="actual">
+                    </div>
+                    <div class="col-3 form-check ">
+
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Today
+                        </label>
+                        <input class="form-check-input" type="checkbox" name="today" id="flexCheckDefault"
+                            [(ngModel)]="todaycheck">
+                    </div>
+                    <div class="col-3 form-check ">
+
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Tomorrow
+                        </label>
+                        <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="tomorrow"
+                            [(ngModel)]="tomorrowcheck">
+                    </div>
+                    <div class="col-3 ">
+                        <button type="button" class="btn btn-light w-100 border border-black rounded"
+                            (click)="save()">Save</button>
+                    </div>
                 </div>
 
             </form>
@@ -35,40 +38,57 @@
 
 <div class="container">
     <div class="row p-1">
-        
+
         <div class="col-4 p-1 border border-black rounded">
             <h2 class="header">Tasks for Today</h2>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    valami
-                </label>
-            </div>
+            <form>
+                <ul class="list-group" *ngFor="let x of service.todays |keyvalue">
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="checkbox" value="{{x.value}}" name="today" id="firstCheckbox" >
+                      <label class="form-check-label" for="firstCheckbox"  >{{x.value}}</label>
+                    </li>
+                    
+                  </ul>
+            </form>
 
         </div>
-        <div class="col-4 p-1 text-center">
-            <div class="icon">
-                <i class="material-icons" style="font-size:48px;">arrow_forward</i>
-                <p>Tomorrow</p>
-            </div>
-            <div class="icon">
-                <i class="material-icons" style="font-size:48px;">arrow_back</i>
-                <p>Today</p>
-            </div>
-            <div class="icon">
-                <i class="material-icons" style="font-size:48px;">delete</i>
-                <p>Delete</p>
+        <div class="col-4 p-1 icons">
+            <div class="row text-center">
+                <div class="col-12">
+                    <div class="icon w-50 mx-auto ">
+                        <i class="material-icons rounded-pill" style="font-size:48px;">arrow_forward</i>
+                        <p>Tomorrow</p>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="icon w-50 mx-auto ">
+                        <i class="material-icons rounded-pill" style="font-size:48px;">arrow_back</i>
+                        <p>Today</p>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="icon w-50 mx-auto ">
+                        <i (click)="remove()" class="material-icons rounded-pill" style="font-size:48px;">delete</i>
+                        <p>Delete</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-4 p-1 border border-black rounded">
             <h2 class="header">Tasks for Tomorrow</h2>
-            <div class="form-check ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    valami
-                </label>
-            </div>
-        
-    </div>
+            <form>
+                <ul class="list-group" *ngFor="let x of service.tomorrows|keyvalue">
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="checkbox" value="{{x.value}}" name="tomorrow" id="firstCheckbox" [(ngModel)]="tomorrow">
+                      <label class="form-check-label" for="firstCheckbox" >{{x.value}}</label>
+                    </li>
+                    
+                  </ul>
+            </form>
+
+        </div>
     </div>
 </div>
+
+

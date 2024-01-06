@@ -25,13 +25,26 @@ export class DayService {
     db.object('tomorrows').valueChanges().subscribe(t => {
       this.tomorrows = new Map(Object.entries(t as Object));
     });
+
+     
+     
   }
 
-  addToday(today: Today) {
+
+
+  addToday(today: string) {
     this.db.list('todays').push(today);
   }
 
-  addTomorrow(tomorrow: Tomorrow) {
+  addTomorrow(tomorrow: string) {
     this.db.list('tomorrows').push(tomorrow);
+  }
+
+  deleteToday(today: string){
+    this.db.list('todays').remove(today);
+  }
+
+  deleteTomorrow(tomorrow: string){
+    this.db.list('tomorrows').remove(tomorrow);
   }
 }
