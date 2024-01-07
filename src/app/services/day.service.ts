@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Today } from '../models/today';
-import { Tomorrow } from '../models/tomorrow';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
+import { Task } from '../models/task';
+import { remove } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,8 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 export class DayService {
   //todays: Today[] = [];
   //tomorrows: Tomorrow[] = [];
-  todays: Map<string, Today> = new Map<string, Today>();
-  tomorrows: Map<string, Tomorrow> = new Map<string, Tomorrow>();
+  todays: Map<string, Task> = new Map<string, Task>();
+  tomorrows: Map<string, Task> = new Map<string, Task>();
   constructor(private db: AngularFireDatabase) {
     /*db.list<Today>('todays').valueChanges().subscribe(t => {
       this.todays = t;
@@ -32,19 +32,26 @@ export class DayService {
 
 
 
-  addToday(today: string) {
+  addToday(today: Task) {
     this.db.list('todays').push(today);
   }
 
-  addTomorrow(tomorrow: string) {
+  addTomorrow(tomorrow: Task) {
     this.db.list('tomorrows').push(tomorrow);
   }
 
-  deleteToday(today: string){
-    this.db.list('todays').remove(today);
+  deleteToday(task:any) {
+    
+    this.db.list('todays').remove(task)
+    
+    
   }
-
-  deleteTomorrow(tomorrow: string){
-    this.db.list('tomorrows').remove(tomorrow);
+  
+  deleteTomorrow(task: any) {
+   
+    
+    this.db.list('tomorrows').remove(task)
+    
+    
   }
 }
