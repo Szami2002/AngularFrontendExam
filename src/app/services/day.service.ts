@@ -7,11 +7,14 @@ import { remove } from '@angular/fire/database';
   providedIn: 'root'
 })
 export class DayService {
-  //todays: Today[] = [];
-  //tomorrows: Tomorrow[] = [];
-  todays: Map<string, Task> = new Map<string, Task>();
-  tomorrows: Map<string, Task> = new Map<string, Task>();
-  constructor(private db: AngularFireDatabase) {
+  todays:Task[]=[];
+  tomorrows:Task[]=[];
+  //todays: Map<string, Task> = new Map<string, Task>();
+  //tomorrows: Map<string, Task> = new Map<string, Task>();
+  gettodays:Task[]=[];
+  gettomorrows:Task[]=[];
+
+  constructor() {
     /*db.list<Today>('todays').valueChanges().subscribe(t => {
       this.todays = t;
     })*/
@@ -19,39 +22,69 @@ export class DayService {
       this.tomorrows = t;
     })*/
 
-    db.object('todays').valueChanges().subscribe(t => {
+    /*db.object('todays').valueChanges().subscribe(t => {
       this.todays = new Map(Object.entries(t as Object));
-    });
-    db.object('tomorrows').valueChanges().subscribe(t => {
+    });*/
+    /*db.object('tomorrows').valueChanges().subscribe(t => {
       this.tomorrows = new Map(Object.entries(t as Object));
-    });
+    });*/
+
+    this.gettodaydata();
+    this.gettomorrowsdata();
+    
 
      
      
   }
 
+  gettodaydata() {
+    const todaysData = localStorage.getItem("todays");
+    this.gettodays = todaysData ? JSON.parse(todaysData) : [];
+  }
 
+  gettomorrowsdata() {
+    const tomorrowsData = localStorage.getItem("tomorrows");
+    this.gettomorrows = tomorrowsData ? JSON.parse(tomorrowsData) : [];
+  }
+
+  
 
   addToday(today: Task) {
-    this.db.list('todays').push(today);
+    if(this.gettodays){
+      this.todays=this.gettodays
+      this.todays.push(Object.assign(new Task(),today))
+    }else{
+      this.todays.push(Object.assign(new Task(),today))
+    }
+    
+    localStorage.setItem('todays',JSON.stringify(this.todays))
   }
 
   addTomorrow(tomorrow: Task) {
-    this.db.list('tomorrows').push(tomorrow);
+    if(this.gettomorrows){
+      this.tomorrows=this.gettomorrows
+      this.tomorrows.push(Object.assign(new Task(),tomorrow))
+    }else{
+      this.tomorrows.push(Object.assign(new Task(),tomorrow))
+    }
+    
+    
+    localStorage.setItem('tomorrows',JSON.stringify(this.tomorrows))
   }
 
-  deleteToday(task:any) {
+  deleteToday(tasks:Task[]) {
     
-    this.db.list('todays').remove(task)
+    const deletitems=this.gettodays.filter(obj => tasks.some(b=>b.task!==obj.task))
+    localStorage.setItem('todays',JSON.stringify(deletitems))
     
     
   }
   
-  deleteTomorrow(task: any) {
+  deleteTomorrow(tasks: Task[]) {
    
     
-    this.db.list('tomorrows').remove(task)
-    
+    const deletitems=this.gettomorrows.filter(obj => tasks.some(b=>b.task!==obj.task))
+    localStorage.setItem('tomorrows',JSON.stringify(deletitems))
     
   }
 }

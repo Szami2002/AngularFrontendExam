@@ -42,10 +42,10 @@
         <div class="col-4 p-1 border border-black rounded">
             <h2 class="header">Tasks for Today</h2>
             <form>
-                <ul class="list-group" *ngFor="let x of service.todays |keyvalue">
+                <ul class="list-group" *ngFor="let x of service.gettodays ">
                     <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox"  name="today" id="firstCheckbox" (click)="selecttoday(x.value)" [(ngModel)]="x.value.isChacked">
-                      <label class="form-check-label" for="firstCheckbox"  >{{x.value.task}}</label>
+                      <input class="form-check-input me-1" type="checkbox"  name="today" id="firstCheckbox" (click)="selecttoday(x)" [(ngModel)]="x.isChacked">
+                      <label class="form-check-label" for="firstCheckbox"  >{{x.task}}</label>
                     </li>
                     
                   </ul>
@@ -56,14 +56,14 @@
             <div class="row text-center">
                 <div class="col-12">
                     <div class="icon w-50 mx-auto ">
-                        <i class="material-icons rounded-pill" style="font-size:48px;">arrow_forward</i>
+                        <i (click)="gotomorrow()" class="material-icons rounded-pill" style="font-size:48px;">arrow_forward</i>
                         <p>Tomorrow</p>
                     </div>
                 </div>
 
                 <div class="col-12">
                     <div class="icon w-50 mx-auto ">
-                        <i class="material-icons rounded-pill" style="font-size:48px;">arrow_back</i>
+                        <i (click)="gotoday()" class="material-icons rounded-pill" style="font-size:48px;">arrow_back</i>
                         <p>Today</p>
                     </div>
                 </div>
@@ -78,10 +78,10 @@
         <div class="col-4 p-1 border border-black rounded">
             <h2 class="header">Tasks for Tomorrow</h2>
             <form>
-                <ul class="list-group" *ngFor="let x of service.tomorrows|keyvalue">
+                <ul class="list-group" *ngFor="let x of service.gettomorrows">
                     <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox"  name="tomorrow" id="firstCheckbox" (click)="selecttomorrow(x.value)" [(ngModel)]="x.value.isChacked">
-                      <label class="form-check-label" for="firstCheckbox" >{{x.value.task}}</label>
+                      <input class="form-check-input me-1" type="checkbox"  name="tomorrow" id="firstCheckbox" (click)="selecttomorrow(x)" [(ngModel)]="x.isChacked">
+                      <label class="form-check-label" for="firstCheckbox" >{{x.task}}</label>
                     </li>
                     
                   </ul>

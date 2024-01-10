@@ -16,26 +16,27 @@ export class AppComponent {
   actual: Task = new Task();
   todaycheck: boolean = false;
   tomorrowcheck: boolean = false;
+  deletetodays: Task[] = [];
+  deletetomorrows: Task[] = [];
 
 
-
-  todays: Task[] = [];
-  tomorrows: Task[] = [];
 
 
   constructor(public service: DayService) {
+    
 
   }
 
 
 
-
+  
 
 
 
   save() {
     if (this.todaycheck) {
       this.service.addToday(this.actual)
+      
     }
 
     if (this.tomorrowcheck) {
@@ -47,47 +48,63 @@ export class AppComponent {
       alert("Pleace select a day!")
     }
 
-
-
+    
+    
 
 
 
   }
 
   selecttoday(today: Task) {
-    const result = this.todays.find(obj => obj.task === today.task)
+    const result = this.deletetodays.find(obj => obj.task === today.task)
     if (result) {
-      this.todays = this.todays.filter(obj => obj.task !== today.task)
+      this.deletetodays = this.deletetodays.filter(obj => obj.task !== today.task)
     } else {
-      this.todays.push(today)
+      this.deletetodays.push(Object.assign(new Task(),today))
     }
 
-    console.log(this.todays)
+    console.log(this.deletetodays)
   }
 
   selecttomorrow(tomorrow: Task) {
-    const result = this.tomorrows.find(obj => obj.task === tomorrow.task)
+    const result = this.deletetomorrows.find(obj => obj.task === tomorrow.task)
     if (result) {
-      this.tomorrows = this.tomorrows.filter(obj => obj.task !== tomorrow.task)
+      this.deletetomorrows = this.deletetomorrows.filter(obj => obj.task !== tomorrow.task)
     } else {
-      this.tomorrows.push(tomorrow)
+      this.deletetomorrows.push(Object.assign(new Task(),tomorrow))
     }
 
-    console.log(this.tomorrows)
+    console.log(this.deletetomorrows)
   }
 
   selectremove() {
-    if (this.todays.length > 0) {
-      this.service.deleteToday(this.todays);
+    if (this.deletetodays.length > 0) {
+      this.service.deleteToday(this.deletetodays);
     }
-    if (this.tomorrows.length > 0) {
-      this.service.deleteTomorrow(this.tomorrows);
+    if (this.deletetomorrows.length > 0) {
+      this.service.deleteTomorrow(this.deletetomorrows);
     }
-    if(this.todays.length == 0 && this.tomorrows.length == 0) {
+    if(this.deletetodays.length == 0 && this.deletetomorrows.length == 0) {
       alert("Please choose a task!");
     }
+    
+    this.service.gettodaydata()
+    this.service.gettomorrowsdata()
+
+  }
+
+  gotomorrow(){
+    
+    this.service.gettodaydata()
+    this.service.gettomorrowsdata()
+
+  }
+
+  gotoday(){
 
 
+    this.service.gettodaydata()
+    this.service.gettomorrowsdata()
   }
 }
 
