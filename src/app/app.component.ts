@@ -23,88 +23,115 @@ export class AppComponent {
 
 
   constructor(public service: DayService) {
-    
+
 
   }
 
 
 
-  
+
 
 
 
   save() {
     if (this.todaycheck) {
-      this.service.addToday(this.actual)
-      
+      this.service.addToday(this.actual);
+
     }
 
     if (this.tomorrowcheck) {
-      this.service.addTomorrow(this.actual)
+      this.service.addTomorrow(this.actual);
     }
 
 
     if (!this.todaycheck && !this.tomorrowcheck) {
-      alert("Pleace select a day!")
+      alert("Pleace select a day!");
     }
+    this.actual = new Task();
 
-    
-    
+
 
 
 
   }
 
   selecttoday(today: Task) {
-    const result = this.deletetodays.find(obj => obj.task === today.task)
+    const result = this.deletetodays.find(obj => obj.task === today.task);
     if (result) {
-      this.deletetodays = this.deletetodays.filter(obj => obj.task !== today.task)
+      this.deletetodays = this.deletetodays.filter(obj => obj.task !== today.task);
     } else {
-      this.deletetodays.push(Object.assign(new Task(),today))
+      this.deletetodays.push(Object.assign(new Task(), today));
     }
 
-    console.log(this.deletetodays)
+    console.log(this.deletetodays);
   }
 
   selecttomorrow(tomorrow: Task) {
-    const result = this.deletetomorrows.find(obj => obj.task === tomorrow.task)
+    const result = this.deletetomorrows.find(obj => obj.task === tomorrow.task);
     if (result) {
-      this.deletetomorrows = this.deletetomorrows.filter(obj => obj.task !== tomorrow.task)
+      this.deletetomorrows = this.deletetomorrows.filter(obj => obj.task !== tomorrow.task);
     } else {
-      this.deletetomorrows.push(Object.assign(new Task(),tomorrow))
+      this.deletetomorrows.push(Object.assign(new Task(), tomorrow));
     }
 
-    console.log(this.deletetomorrows)
+    console.log(this.deletetomorrows);
   }
 
   selectremove() {
+    if (this.deletetodays.length == 0 && this.deletetomorrows.length == 0) {
+      alert("Pleace choose a task!")
+    }
+
     if (this.deletetodays.length > 0) {
       this.service.deleteToday(this.deletetodays);
+      this.deletetodays = [];
     }
     if (this.deletetomorrows.length > 0) {
       this.service.deleteTomorrow(this.deletetomorrows);
+      this.deletetomorrows = [];
     }
-    if(this.deletetodays.length == 0 && this.deletetomorrows.length == 0) {
-      alert("Please choose a task!");
-    }
-    
-    this.service.gettodaydata()
-    this.service.gettomorrowsdata()
+
+
+
+
+
+    this.service.gettodaydata();
+    this.service.gettomorrowsdata();
 
   }
 
-  gotomorrow(){
-    
-    this.service.gettodaydata()
-    this.service.gettomorrowsdata()
+  gotomorrow() {
+    if (this.deletetodays.length == 0) {
+      alert("Pleace choose a task!")
+    } else {
+      this.service.deleteToday(this.deletetodays);
+      this.service.moveTomorrow(this.deletetodays);
+      this.deletetodays = [];
+    }
+
+
+
+
+
+    this.service.gettodaydata();
+    this.service.gettomorrowsdata();
 
   }
 
-  gotoday(){
+  gotoday() {
+    if (this.deletetomorrows.length == 0) {
+      alert("Pleace choose a task!")
+    } else {
+      this.service.deleteTomorrow(this.deletetomorrows);
+      this.service.moveToday(this.deletetomorrows);
+      this.deletetomorrows = [];
+    }
 
 
-    this.service.gettodaydata()
-    this.service.gettomorrowsdata()
+
+
+    this.service.gettodaydata();
+    this.service.gettomorrowsdata();
   }
 }
 

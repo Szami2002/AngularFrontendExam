@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
 import { Task } from '../models/task';
-import { remove } from '@angular/fire/database';
+import { AppComponent } from '../app.component';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DayService {
-  todays:Task[]=[];
-  tomorrows:Task[]=[];
+  todays: Task[] = [];
+  tomorrows: Task[] = [];
   //todays: Map<string, Task> = new Map<string, Task>();
   //tomorrows: Map<string, Task> = new Map<string, Task>();
-  gettodays:Task[]=[];
-  gettomorrows:Task[]=[];
+  gettodays: Task[] = [];
+  gettomorrows: Task[] = [];
 
   constructor() {
     /*db.list<Today>('todays').valueChanges().subscribe(t => {
@@ -31,10 +32,10 @@ export class DayService {
 
     this.gettodaydata();
     this.gettomorrowsdata();
-    
 
-     
-     
+
+
+
   }
 
   gettodaydata() {
@@ -47,44 +48,93 @@ export class DayService {
     this.gettomorrows = tomorrowsData ? JSON.parse(tomorrowsData) : [];
   }
 
-  
+
 
   addToday(today: Task) {
-    if(this.gettodays){
-      this.todays=this.gettodays
-      this.todays.push(Object.assign(new Task(),today))
-    }else{
-      this.todays.push(Object.assign(new Task(),today))
+    if (this.gettodays) {
+      this.todays = this.gettodays
+      if (this.todays.find(obj => obj.task === today.task)) {
+        alert("A task can only appear once");
+      } else {
+        this.todays.push(Object.assign(new Task(), today));
+      }
+
+    } else {
+      this.todays.push(Object.assign(new Task(), today));
     }
-    
-    localStorage.setItem('todays',JSON.stringify(this.todays))
+
+    localStorage.setItem('todays', JSON.stringify(this.todays));
   }
 
   addTomorrow(tomorrow: Task) {
-    if(this.gettomorrows){
-      this.tomorrows=this.gettomorrows
-      this.tomorrows.push(Object.assign(new Task(),tomorrow))
-    }else{
-      this.tomorrows.push(Object.assign(new Task(),tomorrow))
+    if (this.gettomorrows) {
+      this.tomorrows = this.gettomorrows
+      if (this.tomorrows.find(obj => obj.task === tomorrow.task)) {
+        alert("A task can only appear once");
+      } else {
+        this.tomorrows.push(Object.assign(new Task(), tomorrow));
+      }
+    } else {
+      this.tomorrows.push(Object.assign(new Task(), tomorrow));
     }
-    
-    
-    localStorage.setItem('tomorrows',JSON.stringify(this.tomorrows))
+
+
+    localStorage.setItem('tomorrows', JSON.stringify(this.tomorrows));
   }
 
-  deleteToday(tasks:Task[]) {
-    
-    const deletitems=this.gettodays.filter(obj => tasks.some(b=>b.task!==obj.task))
-    localStorage.setItem('todays',JSON.stringify(deletitems))
-    
-    
+  deleteToday(tasks: Task[]) {
+    this.todays = this.gettodays;
+    const result = this.todays.filter(obj => tasks.every(b => b.task !== obj.task));
+    this.todays = result
+
+    localStorage.setItem('todays', JSON.stringify(this.todays));
+
+
+
   }
-  
+
   deleteTomorrow(tasks: Task[]) {
-   
-    
-    const deletitems=this.gettomorrows.filter(obj => tasks.some(b=>b.task!==obj.task))
-    localStorage.setItem('tomorrows',JSON.stringify(deletitems))
-    
+    this.tomorrows = this.gettomorrows;
+    const result = this.tomorrows.filter(obj => tasks.every(b => b.task !== obj.task));
+    this.tomorrows = result;
+
+    localStorage.setItem('tomorrows', JSON.stringify(this.tomorrows));
+
+
+  }
+
+  moveToday(tasks: Task[]) {
+
+    if (this.gettodays) {
+      this.todays = this.gettodays;
+      
+      this.todays.push(...tasks);
+
+
+    } else {
+      this.todays.push(...tasks);
+    }
+
+    localStorage.setItem('todays', JSON.stringify(this.todays));
+
+
+
+
+  }
+
+  moveTomorrow(tasks: Task[]) {
+    if (this.gettomorrows) {
+      this.tomorrows = this.gettomorrows;
+      
+
+      this.tomorrows.push(...tasks);
+
+    } else {
+      this.tomorrows.push(...tasks);
+    }
+
+    localStorage.setItem('tomorrows', JSON.stringify(this.tomorrows));
+
+
   }
 }

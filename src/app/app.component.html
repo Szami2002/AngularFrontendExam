@@ -44,7 +44,7 @@
             <form>
                 <ul class="list-group" *ngFor="let x of service.gettodays ">
                     <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox"  name="today" id="firstCheckbox" (click)="selecttoday(x)" [(ngModel)]="x.isChacked">
+                      <input class="form-check-input me-1" type="checkbox"  name="today" id="firstCheckbox" (click)="selecttoday(x)" >
                       <label class="form-check-label" for="firstCheckbox"  >{{x.task}}</label>
                     </li>
                     
@@ -80,7 +80,7 @@
             <form>
                 <ul class="list-group" *ngFor="let x of service.gettomorrows">
                     <li class="list-group-item">
-                      <input class="form-check-input me-1" type="checkbox"  name="tomorrow" id="firstCheckbox" (click)="selecttomorrow(x)" [(ngModel)]="x.isChacked">
+                      <input class="form-check-input me-1" type="checkbox"  name="tomorrow" id="firstCheckbox" (click)="selecttomorrow(x)" >
                       <label class="form-check-label" for="firstCheckbox" >{{x.task}}</label>
                     </li>
                     
